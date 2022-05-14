@@ -1,15 +1,15 @@
 export function inspect(
-  target: any,
-  propertyKey: string,
-  descriptor: PropertyDescriptor
+    target: any, 
+    propertyKey: string, 
+    descriptor: PropertyDescriptor
 ) {
-  const method = descriptor.value;
-  descriptor.value = function (...args: any[]) {
-    console.log(`------Metódo${propertyKey} executado`);
-    console.log(`-----Parâmetros: ${JSON.stringify(args)}`);
-    const retorno = method.apply(this, args);
-    console.log(`-----Valor de retorno: ${JSON.stringify(retorno)}`);
-    return retorno;
-  };
-  return descriptor;
+    const metodoOriginal = descriptor.value;
+    descriptor.value = function (...args: any[]) {
+        console.log(`--- Método ${propertyKey}`);
+        console.log(`------ parâmetros: ${JSON.stringify(args)}`)
+        const retorno = metodoOriginal.apply(this, args);
+        console.log(`------ retorno: ${JSON.stringify(retorno)}`);
+        return retorno;
+    }
+    return descriptor;
 }
